@@ -1,0 +1,47 @@
+
+<div class="controls">
+  <button {{action "previousPage"}} class="back">PREV</button>
+  <h3>  - {{current_page}} -</h3>
+  <button {{action "nextPage"}} class="">NEXT</button>
+  <div id="filters">
+    <span>Filter by.... |  </span>
+    <select name="role" class="form-control" onchange={{action "updateSelectedFilter" value="target.value"}}>
+      <option value="connected">Connected</option>
+      <option value="location">Location</option>
+      <option value="parent_location">Parent Location</option>
+    </select>
+    {{input value=cfilter type="text" placeholder="filter value" }}
+    <button id="filterbtn" type="button" {{action "applyFilters"}}>Apply Filter</button>
+  </div>
+</div>
+<table id="device-table" class="pure-table">
+  <thead>
+    <td>id</td>
+    <td>connected</td>
+    <td>location</td>
+    <td>parent_location</td>
+    <td>mac</td>
+    <td>signal</td>
+    <td>updated_at</td>
+
+  </thead>
+  <tbody>
+    {{#each this.devices as |device|}}
+      <tr>
+        <td role="button">{{device.id}}</td>
+        <td>
+          {{#if device.connected}}
+            <i class="fa fa-wifi"></i> {{device.connected}}
+          {{else}}
+            <i class="fa fa-times-circle"></i> {{device.connected}}
+          {{/if}}
+        </td>
+        <td>{{device.location}}</td>
+        <td>{{device.parent_location}}</td>
+        <td>{{device.mac_address}}</td>
+        <td>{{device.signal}}</td>
+        <td>{{device.updated_at}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
